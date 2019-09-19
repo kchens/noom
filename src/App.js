@@ -56,20 +56,35 @@ class App extends React.Component {
     return (
       <div className="App">
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <div style={{ backgroundColor: 'orange', marginLeft: '1rem', width: '200px' }}>
+          <div style={{ backgroundColor: 'orange', marginLeft: '1rem', width: '250px' }}>
             <p><b>Menu</b></p>
-            {hasMenuItems && menuItems.map((item, i) => 
-              <div onClick={() => this.addItemToMeal(item) }>{item.name}</div>
-            )}
+            <table style={{ width: 'inherit' }}>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Calories/Portion</th>
+                </tr>
+              </thead>
+              <tbody>
+                {hasMenuItems && menuItems.map((item, i) =>
+                  <tr onClick={() => this.addItemToMeal(item)}>
+                    <td>{item.name}</td>
+                    <td>{`${roundToSingleDecimal(item.calories / 100 * item.portion)}`}</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </div>
-          <div style={{ backgroundColor: 'yellow', marginLeft: '1rem', width: '200px' }}>
+          <div style={{ backgroundColor: 'yellow', marginLeft: '1rem', width: '250px' }}>
             <p><b>Meal</b></p>
             <table style={{ width: 'inherit' }}>
               <caption>Calorie Count: {caloriecount}</caption>
-              <tr>
-                <th>Item</th>
-                <th>Portion</th>
-              </tr>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Portion</th>
+                </tr>
+              </thead>
               <tbody>
                 {hasMeal && Object.entries(meal).map((entry) => {
                   const food = entry[0]
