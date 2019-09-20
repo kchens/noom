@@ -28,7 +28,7 @@ class App extends React.Component {
 
     newMeal.totalCalories = roundToSingleDecimal(newMeal.totalCalories + calcCaloriesPerPortion(newItem.calories, newItem.portion))
     newMeal.items = this.incrementPortionForNewitem(newMeal.items, newItem)
-    
+
     this.setState({ meal: newMeal })
   }
 
@@ -51,7 +51,7 @@ class App extends React.Component {
     const { meal, menuItems} = this.state
 
     return (
-      <div className="App" style={{ display: 'flex', justifyContent: 'center' }}>
+      <div className="App">
         <Menu menuItems={menuItems} addItemToMeal={this.addItemToMeal} />
         <Meal meal={meal} />
       </div>

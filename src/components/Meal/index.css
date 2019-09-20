@@ -1,0 +1,9 @@
+.meal {
+    background-color: yellow; 
+    margin-left: 1rem; 
+    width: 250px;
+}
+
+.meal-table {
+    width: inherit
+}

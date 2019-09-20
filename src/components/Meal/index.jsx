@@ -1,14 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { mealTitle, getMealCaption, portionsHeader, itemHeader } from '../../constants'
+import './index.css'
 
 const Meal = ({ meal }) => {
   const hasMeal = meal.items.length > 0
 
   return (
-    <div style={{ backgroundColor: 'yellow', marginLeft: '1rem', width: '250px' }}>
+    <div className="meal">
       <p><b>{mealTitle}</b></p>
-      <table style={{ width: 'inherit' }}>
+      <table className="meal-table">
         <caption>{getMealCaption(meal.totalCalories)}</caption>
         <thead>
           <tr>

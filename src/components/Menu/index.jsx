@@ -2,6 +2,7 @@ import React from 'react'
 import { roundToSingleDecimal, calcCaloriesPerPortion } from '../../utils'
 import { menuTitle, itemHeader, caloriesPortionHeader } from '../../constants'
 import PropTypes from 'prop-types'
+import './index.css'
 
 const displayCaloriesPerPortion = (item) => roundToSingleDecimal(
                                               calcCaloriesPerPortion(item.calories, item.portion)
@@ -11,9 +12,9 @@ const Menu = ({ menuItems, addItemToMeal }) => {
   const hasMenuItems = menuItems.length > 0
 
   return (
-    <div style={{ backgroundColor: 'orange', marginLeft: '1rem', width: '250px' }}>
+    <div className='menu'>
       <p><b>{menuTitle}</b></p>
-      <table style={{ width: 'inherit' }}>
+      <table className='menu-table'>
         <thead>
           <tr>
             <th>{itemHeader}</th>

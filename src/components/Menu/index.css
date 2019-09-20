@@ -1,0 +1,9 @@
+.menu {
+    background-color: orange;
+    margin-left: 1rem;
+    width: 250px;
+}
+
+.menu-table {
+    width: inherit
+}
