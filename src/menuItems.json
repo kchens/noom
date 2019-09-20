@@ -1,7 +1,7 @@
 [      
     {"id": 6, "name": "broccoli", "calories": 34, "portion": 91},
     {"id": 4, "name": "chicken", "calories": 239, "portion": 140},
-    {"id": 1, "name": "coffee", "calories": 0, "portion": 237},
+    {"id": 1, "name": "coffee", "calories": 0.4, "portion": 237},
     {"id": 2, "name": "olive oil", "calories": 884, "portion": 14},
     {"id": 3, "name": "side salad", "calories": 20, "portion": 87},
     {"id": 7, "name": "spinach", "calories": 23, "portion": 90},

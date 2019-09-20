@@ -1,12 +1,8 @@
 import React from 'react'
-import { roundToSingleDecimal, calcCaloriesPerPortion } from '../../utils'
-import { menuTitle, itemHeader, caloriesPortionHeader } from '../../constants'
+import { menuTitle, itemHeader, caloriesPortionHeader, getCaloriesPerPortion } from '../../constants'
 import PropTypes from 'prop-types'
 import './index.css'
 
-const displayCaloriesPerPortion = (item) => roundToSingleDecimal(
-                                              calcCaloriesPerPortion(item.calories, item.portion)
-                                            )
 
 const Menu = ({ menuItems, addItemToMeal }) => {
   const hasMenuItems = menuItems.length > 0
@@ -28,7 +24,7 @@ const Menu = ({ menuItems, addItemToMeal }) => {
               onClick={() => addItemToMeal(item)}
             >
               <td>{item.name}</td>
-              <td>{`${displayCaloriesPerPortion(item)}`}</td>
+              <td>{`${getCaloriesPerPortion(item)}`}</td>
             </tr>
           )}
         </tbody>
