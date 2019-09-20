@@ -1,6 +1,7 @@
 import React from 'react'
 import { roundToSingleDecimal, calcCaloriesPerPortion } from '../../utils'
 import { menuTitle, itemHeader, caloriesPortionHeader } from '../../constants'
+import PropTypes from 'prop-types'
 
 const displayCaloriesPerPortion = (item) => roundToSingleDecimal(
                                               calcCaloriesPerPortion(item.calories, item.portion)
@@ -32,6 +33,18 @@ const Menu = ({ menuItems, addItemToMeal }) => {
         </tbody>
       </table>
     </div>
+  )
+}
+
+Menu.propTypes = {
+  addItemToMeal: PropTypes.func,
+  menuItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      calories: PropTypes.number,
+      portion: PropTypes.number,
+    })
   )
 }
 

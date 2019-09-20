@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { mealTitle, getMealCaption, portionsHeader, itemHeader } from '../../constants'
 
 const Meal = ({ meal }) => {
@@ -26,6 +27,18 @@ const Meal = ({ meal }) => {
       </table>
     </div>
   )
+}
+
+Meal.propTypes = {
+  meal: PropTypes.shape({
+    totalCalories: PropTypes.number,
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string,
+        portion: PropTypes.number,
+      })
+    )
+  })
 }
 
 export default Meal
