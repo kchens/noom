@@ -7,7 +7,7 @@ const Meal = ({ meal }) => {
     <div style={{ backgroundColor: 'yellow', marginLeft: '1rem', width: '250px' }}>
       <p><b>Meal</b></p>
       <table style={{ width: 'inherit' }}>
-        <caption>Calorie Count: {meal.totalCalories.toFixed(1)}</caption>
+        <caption>Calorie Count: {meal.totalCalories}</caption>
         <thead>
           <tr>
             <th>Item</th>

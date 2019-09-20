@@ -1,9 +1,12 @@
 import React from 'react'
-import { roundToSingleDecimal } from '../../utils'
+import { roundToSingleDecimal, calcCaloriesPerPortion } from '../../utils'
+
+const displayCaloriesPerPortion = (item) => roundToSingleDecimal(
+                                              calcCaloriesPerPortion(item.calories, item.portion)
+                                            )
 
 const Menu = ({ menuItems, addItemToMeal }) => {
   const hasMenuItems = menuItems.length > 0
-  const caloriesPerPortion = (item) => roundToSingleDecimal(item.calories / 100 * item.portion).toFixed(1)
 
   return (
     <div style={{ backgroundColor: 'orange', marginLeft: '1rem', width: '250px' }}>
@@ -22,7 +25,7 @@ const Menu = ({ menuItems, addItemToMeal }) => {
               onClick={() => addItemToMeal(item)}
             >
               <td>{item.name}</td>
-              <td>{`${caloriesPerPortion(item)}`}</td>
+              <td>{`${displayCaloriesPerPortion(item)}`}</td>
             </tr>
           )}
         </tbody>
