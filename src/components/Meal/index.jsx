@@ -1,17 +1,18 @@
 import React from 'react'
+import { mealTitle, getMealCaption, portionsHeader, itemHeader } from '../../constants'
 
 const Meal = ({ meal }) => {
   const hasMeal = meal.items.length > 0
 
   return (
     <div style={{ backgroundColor: 'yellow', marginLeft: '1rem', width: '250px' }}>
-      <p><b>Meal</b></p>
+      <p><b>{mealTitle}</b></p>
       <table style={{ width: 'inherit' }}>
-        <caption>Calorie Count: {meal.totalCalories}</caption>
+        <caption>{getMealCaption(meal.totalCalories)}</caption>
         <thead>
           <tr>
-            <th>Item</th>
-            <th>Portion</th>
+            <th>{itemHeader}</th>
+            <th>{portionsHeader}</th>
           </tr>
         </thead>
         <tbody>
@@ -20,8 +21,7 @@ const Meal = ({ meal }) => {
               <td>{item.name}</td>
               <td>{item.portion}</td>
             </tr>
-          }
-          )}
+          })}
         </tbody>
       </table>
     </div>

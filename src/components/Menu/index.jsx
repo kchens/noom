@@ -1,5 +1,6 @@
 import React from 'react'
 import { roundToSingleDecimal, calcCaloriesPerPortion } from '../../utils'
+import { menuTitle, itemHeader, caloriesPortionHeader } from '../../constants'
 
 const displayCaloriesPerPortion = (item) => roundToSingleDecimal(
                                               calcCaloriesPerPortion(item.calories, item.portion)
@@ -10,12 +11,12 @@ const Menu = ({ menuItems, addItemToMeal }) => {
 
   return (
     <div style={{ backgroundColor: 'orange', marginLeft: '1rem', width: '250px' }}>
-      <p><b>Menu</b></p>
+      <p><b>{menuTitle}</b></p>
       <table style={{ width: 'inherit' }}>
         <thead>
           <tr>
-            <th>Item</th>
-            <th>Calories/Portion</th>
+            <th>{itemHeader}</th>
+            <th>{caloriesPortionHeader}</th>
           </tr>
         </thead>
         <tbody>
