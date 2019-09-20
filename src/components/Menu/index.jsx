@@ -3,6 +3,8 @@ import { roundToSingleDecimal } from '../../utils'
 
 const Menu = ({ menuItems, addItemToMeal }) => {
   const hasMenuItems = menuItems.length > 0
+  const caloriesPerPortion = (item) => roundToSingleDecimal(item.calories / 100 * item.portion).toFixed(1)
+
   return (
     <div style={{ backgroundColor: 'orange', marginLeft: '1rem', width: '250px' }}>
       <p><b>Menu</b></p>
@@ -20,7 +22,7 @@ const Menu = ({ menuItems, addItemToMeal }) => {
               onClick={() => addItemToMeal(item)}
             >
               <td>{item.name}</td>
-              <td>{`${roundToSingleDecimal(item.calories / 100 * item.portion)}`}</td>
+              <td>{`${caloriesPerPortion(item)}`}</td>
             </tr>
           )}
         </tbody>

@@ -1,28 +1,13 @@
 import React from 'react'
-import { roundToSingleDecimal } from '../../utils'
 
 const Meal = ({ meal }) => {
-  const mealEntries = Object.entries(meal)
-
-  const hasMeal = mealEntries.length > 0
-
-  let caloriecount
-  if (hasMeal) {
-    caloriecount = roundToSingleDecimal(
-      mealEntries.reduce((acc, entry) => {
-        let foodDetails = entry[1]
-        return acc + foodDetails.portion * (foodDetails.itemDetails.calories / 100 * (foodDetails.itemDetails.portion))
-      }, 0)
-    )
-  } else {
-    caloriecount = 0
-  }
+  const hasMeal = meal.items.length > 0
 
   return (
     <div style={{ backgroundColor: 'yellow', marginLeft: '1rem', width: '250px' }}>
       <p><b>Meal</b></p>
       <table style={{ width: 'inherit' }}>
-        <caption>Calorie Count: {caloriecount}</caption>
+        <caption>Calorie Count: {meal.totalCalories.toFixed(1)}</caption>
         <thead>
           <tr>
             <th>Item</th>
@@ -30,12 +15,10 @@ const Meal = ({ meal }) => {
           </tr>
         </thead>
         <tbody>
-          {hasMeal && Object.entries(meal).map((entry, i) => {
-            const food = entry[0]
-            const foodDetails = entry[1]
+          {hasMeal && meal.items.map((item, i) => {
             return <tr key={i}>
-              <td>{food}</td>
-              <td>{foodDetails.portion}</td>
+              <td>{item.name}</td>
+              <td>{item.portion}</td>
             </tr>
           }
           )}

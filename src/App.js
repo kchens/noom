@@ -3,18 +3,25 @@ import './App.css';
 import Menu from './components/Menu'
 import Meal from './components/Meal'
 import menuItems from './menuItems.json'
-import { roundToSingleDecimal } from './utils.js'
+import { roundToSingleDecimal } from './utils'
+import { cloneDeep } from 'lodash'
+
+/**
+ * Think about delete
+ * PropTypes
+ * rename menuItems
+ * Consolidate utily functions
+ * Strings to constants file
+ * Classnames
+ */
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       meal: {
-        // This is what meal looks like.
-        // 'chicken': {
-        //   portions: 1,
-        //   itemDetails: {},
-        // }
+        totalCalories: 0,
+        items: []
       },
       menuItems: [],
     }
@@ -25,18 +32,29 @@ class App extends React.Component {
     this.setState({ menuItems })
   }
 
-  addItemToMeal = (item) => {
+  addItemToMeal = (newItem) => {
     const { meal } = this.state
     const newMeal = Object.assign({}, meal)
-    if (item.name in newMeal) {
-      newMeal[item.name].portion = newMeal[item.name].portion + 1
-    } else {
-      newMeal[item.name] = {
-        portion: 1,
-        itemDetails: item
-      }
-    }
+
+    newMeal.totalCalories = newMeal.totalCalories + roundToSingleDecimal(newItem.calories / 100 * newItem.portion)
+    newMeal.items = this.incrementItemsPortion(newMeal.items, newItem)
+    
     this.setState({ meal: newMeal })
+  }
+
+  incrementItemsPortion = (items, newItem) => {
+    const hasItem = items.filter((item) => item.name === newItem.name).length > 0
+    if (hasItem) {
+      return items.map((item) => {
+        if (item.name === newItem.name) {
+          return { name: item.name, portion: item.portion + 1 }
+        }
+        return item
+      })
+    } else {
+      items.push({ name: newItem.name, portion: 1 })
+      return items
+    }
   }
 
   render() {
