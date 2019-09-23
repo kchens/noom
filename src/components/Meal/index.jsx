@@ -3,6 +3,12 @@ import PropTypes from 'prop-types'
 import { mealTitle, getMealCaption, portionsHeader, itemHeader } from '../../constants'
 import './index.css'
 
+/**
+ * get default value for select
+ * render loggedMeals state
+ *  
+ */
+
 class Meal extends React.PureComponent { 
   constructor(props) {
     super(props)

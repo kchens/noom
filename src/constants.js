@@ -3,6 +3,7 @@ import { roundToSingleDecimal, calcCaloriesPerPortion } from './utils'
 export const foodSearchTitle = 'Food Search'
 export const foodSearchPlaceholder = 'Enter a food'
 export const getFoodSearchNoResultsMsg = (searchTerm) => `No results for:  '${searchTerm}'`
+export const getMinSearchLengthErrorMsg = (minLength) => `Search length must be at least ${minLength} characters long`
 export const getFetchErrorMsg = (error) => `Something went wrong: ${error}`
 
 export const menuTitle = 'Menu'

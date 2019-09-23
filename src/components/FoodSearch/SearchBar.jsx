@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+
 const SearchBar = ({onSubmit, onChange, placeholder}) => 
   <form onSubmit={onSubmit}>
     <input

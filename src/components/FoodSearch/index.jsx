@@ -2,20 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { 
   foodSearchPlaceholder, 
-  brandHeader, 
-  itemHeader, 
-  caloriesPortionHeader, 
   foodSearchTitle,
   getFoodSearchNoResultsMsg,
   getFetchErrorMsg,
+  getMinSearchLengthErrorMsg,
 } from '../../constants'
-import FoodItem from '../common/FoodItem'
-import SearchBar from '../common/SearchBar'
+import FoodTable from '../common/FoodTable'
+import SearchBar from './SearchBar'
+import ErrorMsg from './ErrorMsg'
 import './index.css'
 
 const getUrl = (newFood) => `https://uih0b7slze.execute-api.us-east-1.amazonaws.com/dev/search?kv=${newFood}`
 
-
+const MIN_SEARCH_LENGTH = 3
 class FoodSearch extends React.PureComponent {
   constructor(props) {
     super(props)
@@ -34,7 +33,7 @@ class FoodSearch extends React.PureComponent {
     e.preventDefault()
     const { searchTerm } = this.state
     
-    if (searchTerm.length >= 3) {
+    if (searchTerm.length >= MIN_SEARCH_LENGTH) {
       fetch(getUrl(searchTerm))
         .then(res => res.json())
         .then((foods) => {
@@ -44,18 +43,15 @@ class FoodSearch extends React.PureComponent {
         .catch((error) => {
           this.setState({ errorMsg: getFetchErrorMsg(error) })
         })
+    } else {
+      this.setState({ errorMsg: getMinSearchLengthErrorMsg(MIN_SEARCH_LENGTH)})
     }
-  }
-
-  renderItem = (item) => {
-    const { addItemToMenu } = this.props
-    return <FoodItem key={item.id} item={item} onClick={addItemToMenu} />
   }
 
   render() {
     const { foods, errorMsg } = this.state
-    const hasFoods = foods.length > 0 
-
+    const { addItemToMenu } = this.props
+    
     return (
       <div className="food-search">
         <p><b>{foodSearchTitle}</b></p>
@@ -64,21 +60,12 @@ class FoodSearch extends React.PureComponent {
           onChange={this.updateSearchTerm}
           placeholder={foodSearchPlaceholder}
         />
+        <FoodTable 
+          items={foods} 
+          onFoodItemClick={addItemToMenu}
+        />      
 
-        <table className="results">
-          <thead>
-            <tr>
-              <th>{itemHeader}</th>
-              <th>{brandHeader}</th>
-              <th>{caloriesPortionHeader}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {hasFoods && foods.map(this.renderItem)}
-          </tbody>
-        </table>
-        
-        {errorMsg && <div>{`${errorMsg}`}</div>}
+        {errorMsg && <ErrorMsg errorMsg={errorMsg} />}
       </div>
     )
   }
@@ -86,6 +73,14 @@ class FoodSearch extends React.PureComponent {
 
 FoodSearch.propTypes = {
   addItemToMenu: PropTypes.func,
+  foods: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      calories: PropTypes.number,
+      portion: PropTypes.number,
+    })
+  )
 }
 
 
