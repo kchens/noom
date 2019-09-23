@@ -44,7 +44,7 @@ class FoodSearch extends React.PureComponent {
           this.setState({ errorMsg: getFetchErrorMsg(error) })
         })
     } else {
-      this.setState({ errorMsg: getMinSearchLengthErrorMsg(MIN_SEARCH_LENGTH)})
+      this.setState({ foods: [], errorMsg: getMinSearchLengthErrorMsg(MIN_SEARCH_LENGTH)})
     }
   }
 

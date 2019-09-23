@@ -1,0 +1,8 @@
+.logged-meals {
+    background-color: lightgreen; 
+    margin-left: 1rem; 
+    width: 500px;
+    height: 330px;
+    padding: 1rem;
+    overflow: scroll;
+}

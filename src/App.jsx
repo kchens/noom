@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.css';
 import Menu from './components/Menu'
-import Meal from './components/Meal'
+import MealEntryForm from './components/MealEntryForm'
 import FoodSearch from './components/FoodSearch'
+import LoggedMeals from './components/LoggedMeals'
 import menuItems from './menuItems.json'
 import { roundToSingleDecimal, calcCaloriesPerPortion } from './utils'
 
@@ -10,7 +11,6 @@ import { roundToSingleDecimal, calcCaloriesPerPortion } from './utils'
  * 1. Users can have multiple meals. Tag it as "Breakfast", "lunch"..
    2. Everytime we add an item, we tag "Breakfast", "lunch"
   => (a) If user tags a meal as "lunch", then they cannot tag a "breakfast". They can tag "dinner"
-  
  */
 
 class App extends React.Component {
@@ -22,10 +22,23 @@ class App extends React.Component {
         items: [],
         type: '',
       },
-      meals: {
-        'breakfast': [],
-        'lunch': [],
-        'dinner': [],
+      loggedMeals: {
+        breakfast: {
+          meals: [],
+          count: 0,
+        },
+        lunch: {
+          meals: [],
+          count: 0,
+        },
+        dinner: {
+          meals: [],
+          count: 0,
+        },
+        snack: {
+          meals: [],
+          count: 0,
+        }
       },
       menuItems: [],
     }
@@ -50,22 +63,38 @@ class App extends React.Component {
     newMeal.totalCalories = roundToSingleDecimal(
       newMeal.totalCalories + calcCaloriesPerPortion(newItem.calories, newItem.portion)
     )
-    
+
     newMeal.items = this.incrementPortionForNewitem(newMeal.items, newItem)
 
     this.setState({ meal: newMeal })
   }
 
-  updateMeals = (type) => {
-    const { meal, meals } = this.state
-    const newMeals = Object.assign({}, meals)
+  updateLoggedMeals = (type) => {
+    const { meal, loggedMeals } = this.state
+
+    if (this.mealIsEmpty()) return
+
+    const newLoggedMeals = Object.assign({}, loggedMeals)
     
     const newMeal = Object.assign({}, meal)
     newMeal.type = type
-    newMeals[type].push(newMeal)
+    newLoggedMeals[type].meals.push(newMeal)
+    newLoggedMeals[type].count = newLoggedMeals[type].meals.length
+    
+    this.setState({ meals: newLoggedMeals })
+  }
 
-    // TODO: we might want to change meal as well, depending on UI 
-    this.setState({ meals: newMeals })
+  resetMeal = () => {
+    const emptyMeal = {
+      totalCalories: 0,
+      items: [],
+      type: '',
+    }
+    this.setState({ meal: emptyMeal })
+  }
+
+  mealIsEmpty = () => {
+    return this.state.meal.items.length === 0
   }
 
   incrementPortionForNewitem = (items, newItem) => {
@@ -84,13 +113,27 @@ class App extends React.Component {
   }
 
   render() {
-    const { meal, menuItems, meals } = this.state
+    const { meal, menuItems, loggedMeals } = this.state
+    const hasLunch = loggedMeals.lunch.count > 0
+    const hasDinner = loggedMeals.dinner.count > 0
 
     return (
       <div className="App">
-        <FoodSearch addItemToMenu={this.addItemToMenu} />
-        <Menu menuItems={menuItems} addItemToMeal={this.addItemToMeal} />
-        <Meal meal={meal} meals={meals} updateMeals={this.updateMeals}/>
+        <div>
+          <FoodSearch addItemToMenu={this.addItemToMenu} />
+          <Menu menuItems={menuItems} addItemToMeal={this.addItemToMeal} />
+        </div>
+        <div>
+          <MealEntryForm
+            meal={meal} 
+            hasLunch={hasLunch}
+            hasDinner={hasDinner}
+            loggedMeals={loggedMeals} 
+            updateLoggedMeals={this.updateLoggedMeals} 
+            resetMeal={this.resetMeal} 
+          />
+          <LoggedMeals loggedMeals={loggedMeals} />
+        </div>
       </div>
     )
   }
