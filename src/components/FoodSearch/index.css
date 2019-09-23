@@ -1,0 +1,12 @@
+.food-search {
+    background-color: lightblue;
+    margin-left: 1rem;
+    width: 600px;
+    height: 330px;
+    overflow: scroll;
+    padding: 1rem;
+}
+
+.results {
+    width: inherit
+}

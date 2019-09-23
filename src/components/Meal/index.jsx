@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { mealTitle, getMealCaption, portionsHeader, itemHeader } from '../../constants'
 import './index.css'
 
-class Meal extends React.Component { 
+class Meal extends React.PureComponent { 
   constructor(props) {
     super(props)
     this.state = {

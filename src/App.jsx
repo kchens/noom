@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Menu from './components/Menu'
 import Meal from './components/Meal'
-import SearchInput from './components/SearchInput'
+import FoodSearch from './components/FoodSearch'
 import menuItems from './menuItems.json'
 import { roundToSingleDecimal, calcCaloriesPerPortion } from './utils'
 
@@ -13,7 +13,7 @@ import { roundToSingleDecimal, calcCaloriesPerPortion } from './utils'
   
  */
 
-class App extends React.Component {
+class App extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -85,7 +85,7 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <SearchInput addItemToMenu={this.addItemToMenu} />
+        <FoodSearch addItemToMenu={this.addItemToMenu} />
         <Menu menuItems={menuItems} addItemToMeal={this.addItemToMeal} />
         <Meal meal={meal} meals={meals} updateMeals={this.updateMeals}/>
       </div>
