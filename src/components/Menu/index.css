@@ -1,8 +1,9 @@
 .menu {
     background-color: orange;
     margin-left: 1rem;
-    width: 250px;
+    width: 600px;
     height: 330px;
+    overflow: scroll;
     padding: 1rem;
 }
 
